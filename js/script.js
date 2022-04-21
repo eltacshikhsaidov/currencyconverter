@@ -1,6 +1,9 @@
 let convertFrom = document.querySelector("body > div > div.converter > div.convertFrom > div.result > div.resultNumber > input[type=text]");
 let convertTo = document.querySelector("body > div > div.converter > div.convertTo > div.result > div.resultNumber > input[type=text]");
 
+let convertFromInfoText = document.querySelector("body > div > div.converter > div.convertFrom > div.result > div.resultInfo > span");
+let convertToInfoText = document.querySelector("body > div > div.converter > div.convertTo > div.result > div.resultInfo > span");
+
 let convertFromCurrency = 'RUB';
 let convertToCurrency = 'RUB';
 
@@ -74,7 +77,11 @@ allConvertFroms.forEach((element) => {
                 console.warn(data.rates);
 
                 convertTo.value =  data.rates[convertToCurrency] * convertFrom.value;
-                console.log(convertTo.value);
+                console.log(data.rates[convertToCurrency]);
+
+                convertFromInfoText.innerText = `1 ${convertFromCurrency} = ${data.rates[convertToCurrency]} ${convertToCurrency}`;
+                convertToInfoText.innerText = `1 ${convertToCurrency} = ${data.rates[convertFromCurrency]} ${convertFromCurrency}`;
+
             }).catch(err => {
                 console.log(err);
             });
@@ -107,6 +114,9 @@ allConvertTos.forEach((element) => {
             .then(data => {
 
                 console.warn(data.rates);
+
+                convertToInfoText.innerText = `1 ${convertFromCurrency} = ${data.rates[convertToCurrency]} ${convertToCurrency}`;
+                convertFromInfoText.innerText = `1 ${convertFromCurrency} = ${data.rates[convertToCurrency]} ${convertToCurrency}`;
 
                 convertTo.value =  convertFrom.value * data.rates[convertToCurrency];
             }).catch(err => {
