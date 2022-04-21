@@ -1,7 +1,7 @@
 let convertFrom = document.querySelector("body > div > div.converter > div.convertFrom > div.result > div.resultNumber > input[type=text]");
 let convertTo = document.querySelector("body > div > div.converter > div.convertTo > div.result > div.resultNumber > input[type=text]");
 
-let convertFromCurrency = 'USD';
+let convertFromCurrency = 'RUB';
 let convertToCurrency = 'RUB';
 
 let convertFromRUB = document.querySelector("body > div > div.converter > div.convertFrom > div.exchanges > div.rub.exc");
@@ -15,126 +15,103 @@ let convertToUSD = document.querySelector("body > div > div.converter > div.conv
 let convertToEUR = document.querySelector("body > div > div.converter > div.convertTo > div.exchanges > div.eur.exc");
 let convertToGBP = document.querySelector("body > div > div.converter > div.convertTo > div.exchanges > div.gbp.exc");
 
+let allConvertFroms = [convertFromRUB, convertFromUSD, convertFromEUR, convertFromGBP];
+let allConvertTos = [convertToRUB, convertToUSD, convertToEUR, convertToGBP];
+
 let url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
 
+convertFromRUB.style.backgroundColor = '#833AE0';
+convertFromRUB.style.color = 'white';
+convertToRUB.style.backgroundColor = '#833AE0';
+convertToRUB.style.color = 'white';
+
+function convert(convertFrom, convertTo) {
+    convertFrom.addEventListener('input', () => {
+
+        if (!isNaN(convertFrom.value)) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    convertTo.value = data.rates[convertFromCurrency] * convertFrom.value;
+                });
+    
+        } else {
+            alert('Please enter correct amount');
+            convertFrom.value = 0;
+        }
+
+    });
+}
+
+convert(convertFrom, convertTo);
+// convert(convertTo, convertFrom);
 
 
-convertFromRUB.addEventListener('click', () => {
-    convertFromRUB.style.backgroundColor = '#833AE0';
-    convertFromRUB.style.color = 'white';
+allConvertFroms.forEach((element) => {
+    element.addEventListener('click', () => {
 
-    convertFromCurrency = convertFromRUB.innerText;
-    console.log(convertFromCurrency);
+        element.style.backgroundColor = '#833AE0';
+        element.style.color = 'white';
 
-    url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
+        for(a in allConvertFroms) {
+            if (allConvertFroms[a] !== element) {
+                allConvertFroms[a].style.backgroundColor = 'white';
+                allConvertFroms[a].style.color = 'rgb(163, 163, 163)';
+            }
+        }
 
-})
+        convertFromCurrency = element.innerText;
+        console.log(convertFromCurrency + ' --> ' + convertToCurrency);
+        
+        url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
+        console.log(url);
 
-convertFromUSD.addEventListener('click', () => {
-    convertFromUSD.style.backgroundColor = '#833AE0';
-    convertFromUSD.style.color = 'white';
 
-    convertFromCurrency = convertFromUSD.innerText;
-    console.log(convertFromCurrency);
-
-    url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
-
-})
-
-convertFromEUR.addEventListener('click', () => {
-    convertFromEUR.style.backgroundColor = '#833AE0';
-    convertFromEUR.style.color = 'white';
-
-    convertFromCurrency = convertFromEUR.innerText;
-    console.log(convertFromCurrency);
-
-    url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
-
-})
-
-convertFromGBP.addEventListener('click', () => {
-    convertFromGBP.style.backgroundColor = '#833AE0';
-    convertFromGBP.style.color = 'white';
-
-    convertFromCurrency = convertFromGBP.innerText;
-    console.log(convertFromCurrency);
-
-    url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
-
-})
-
-// convert to
-
-convertToRUB.addEventListener('click', () => {
-    convertToRUB.style.backgroundColor = '#833AE0';
-    convertToRUB.style.color = 'white';
-
-    convertToCurrency = convertToRUB.innerText;
-    console.log(convertToCurrency);
-
-    url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
-
-})
-
-convertToUSD.addEventListener('click', () => {
-    convertToUSD.style.backgroundColor = '#833AE0';
-    convertToUSD.style.color = 'white';
-
-    convertToCurrency = convertToUSD.innerText;
-    console.log(convertToCurrency);
-
-    url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
-
-})
-
-convertToEUR.addEventListener('click', () => {
-    convertToEUR.style.backgroundColor = '#833AE0';
-    convertToEUR.style.color = 'white';
-
-    convertToCurrency = convertToEUR.innerText;
-    console.log(convertToCurrency);
-
-    url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
-
-})
-
-convertToGBP.addEventListener('click', () => {
-    convertToGBP.style.backgroundColor = '#833AE0';
-    convertToGBP.style.color = 'white';
-
-    convertToCurrency = convertToGBP.innerText;
-    console.log(convertToCurrency);
-
-    url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
-
-})
-
-convertFrom.addEventListener('input', () => {
-
-    if (!isNaN(convertFrom.value)) {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                convertTo.value = data.rates.RUB * convertFrom.value;
+
+                console.warn(data.rates);
+
+                convertTo.value =  data.rates[convertToCurrency] * convertFrom.value;
+                console.log(convertTo.value);
+            }).catch(err => {
+                console.log(err);
             });
 
-    } else {
-        alert('Please enter correct amount');
-        convertFrom.value = 0;
-    }
+        convert(convertFrom, convertTo);
+    });
 });
 
-convertTo.addEventListener('input', () => {
-    if (!isNaN(convertTo.value)) {
+allConvertTos.forEach((element) => {
+    element.addEventListener('click', () => {
+        element.style.backgroundColor = '#833AE0';
+        element.style.color = 'white';
+
+        for(a in allConvertTos) {
+            if (allConvertTos[a] !== element) {
+                allConvertTos[a].style.backgroundColor = 'white';
+                allConvertTos[a].style.color = 'rgb(163, 163, 163)';
+            }
+        }
+
+        convertToCurrency = element.innerText;
+        console.log(convertFromCurrency + ' --> ' + convertToCurrency);
+
+        
+        url = `https://api.exchangerate.host/latest?base=${convertFromCurrency}&symbols=${convertToCurrency}`;
+        console.log(url);
 
         fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            convertFrom.value =  convertTo.value / data.rates.RUB;
-        });
+            .then(response => response.json())
+            .then(data => {
 
-    } else {
-        alert('Please enter correct amount');
-        convertTo.value = 0;
-    }
+                console.warn(data.rates);
+
+                convertTo.value =  convertFrom.value * data.rates[convertToCurrency];
+            }).catch(err => {
+                console.log(err);
+            });
+
+    })
 });

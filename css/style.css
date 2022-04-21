@@ -9,18 +9,78 @@
     width: 100vw;
 }
 
+/* Navbar design */
+
 .navbar {
-    background-color: rgb(222, 222, 222);
-    height: 6vh;
+    background-color: #F5F5F6;;
+    height: 5vw;
     padding-left: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
+.navbar-list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+.navbar-list>ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+.navbar>img {
+    height: 2.5vw;
+}
+
+.navbar-list>ul>li {
+    padding: 1vw;
+    font-size: 2vw;
+}
+
+.navbar-list>ul>li:last-child {
+    padding-right: 7vw;
+}
+
+.navbar-list>ul>li:hover {
+    color: rgb(163, 163, 163);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.navbar-list>button {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 0.5vw 1vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2vw;
+    border-radius: 0.5vw;
+    margin-right: 4vw;
+}
+
+.navbar-list>button:hover {
+    cursor: pointer;
+    background-color: rgb(253, 253, 253);
+    transition: 0.1s ease-in;
+    color: rgb(163, 163, 163);
+}
+
+
+/* navbar end */
+
+/* Application name design */
+
 .name {
-    margin-top: 9vw;
-    /* background-color: blanchedalmond; */
-    font-size: 1.5vw;
+    margin-top: 5vw;
+    font-size: 2vw;
     margin-bottom: 3vw;
-    padding-left: 11.09vw;
+    padding-left: 11vw;
 }
 
 .converter {
@@ -93,15 +153,16 @@
     padding-top: 2vw;
 }
 
-.resultInfo {
-    font-size: 1vw;
-}
-
 .resultNumber>input {
-    font-size: 4vw;
+    font-size: 6vw;
     width: 100%;
     border: none;
     padding-bottom: 1vw;
+}
+
+.resultNumber>input:disabled {
+    background-color: white;
+    color: black;
 }
 
 .resultNumber>input:focus {
@@ -110,6 +171,7 @@
 
 
 .resultInfo {
+    font-size: 1vw;
     padding-top: 1.5vw;
     color: rgb(163, 163, 163);
 }
@@ -118,4 +180,61 @@
     display: flex;
     flex-direction: row;
     padding: 1vw 0 3vw 0;
+}
+
+/* media queries */
+
+@media screen and (max-width: 500px) {
+
+    /* navbar design */
+
+    /* navbar end */
+
+    .name {
+        font-size: 2.5vw;
+    }
+
+    .ihave, .wantTo {
+        font-size: 3vw;
+        padding-bottom: 1vw;
+    }
+
+    /* converter responsive design */
+    .converter {
+        flex-direction: column;
+    }
+
+    .convertFrom, .convertTo {
+        padding: 1vw;
+        width: 80vw;
+    }
+
+    .convertFrom {
+        padding-bottom: 4vw;
+    }
+
+    .result {
+        padding: 2vw;
+        height: 20vw;
+    }
+
+    .resultInfo {
+        font-size: 2vw;
+        padding-top: 5vw;
+        color: rgb(163, 163, 163);
+    }
+
+    .rub, .usd, .eur, .gbp {
+        font-size: 3vw;
+        padding-top: 1vw;
+        padding-bottom: 1vw;
+    }
+
+    .resultNumber>input {
+        font-size: 7vw;
+    }
+
+    /* converter end */
+
+
 }
