@@ -4,6 +4,60 @@ let convertTo = document.querySelector("body > div > div.converter > div.convert
 let convertFromInfoText = document.querySelector("body > div > div.converter > div.convertFrom > div.result > div.resultInfo > span");
 let convertToInfoText = document.querySelector("body > div > div.converter > div.convertTo > div.result > div.resultInfo > span");
 
+let convertButton = document.querySelector("body > div > div.converter > div.convert-button > button");
+let convertDiv = document.querySelector("body > div > div.converter");
+
+let i = 0;
+// let tempForConvertFrom = convertFrom.value;
+// let tempForConvertFrom = convertTo.value;
+convertButton.addEventListener('click', () => {
+
+    if(i % 2 == 0) {
+        convertDiv.style.flexDirection = 'row-reverse';
+
+        if (!isNaN(convertFrom.value)) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let temp = convertFrom.value;
+                    convertTo.value = temp;
+                    convertFrom.value =convertTo.value /  data.rates[convertToCurrency];
+                    console.log('hello world');
+                    // convertTo.value = data.rates[convertToCurrency] * convertFrom.value;
+                });
+    
+        } else {
+            alert('Please enter correct amount');
+            convertFrom.value = 0;
+        }
+
+    } else {
+        convertDiv.style.flexDirection = 'row';
+        let temp = convertTo.value;
+        convertTo.value = convertFrom.value;
+        convertFrom.value = temp;
+
+        if (!isNaN(convertTo.value)) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let temp = convertTo.value;
+                    convertFrom.value = temp;
+                    convertTo.value = convertFrom.value / data.rates[convertToCurrency];
+                    // convertTo.value = data.rates[convertToCurrency] * convertFrom.value;
+                });
+    
+        } else {
+            alert('Please enter correct amount');
+            convertFrom.value = 0;
+        }
+
+    }
+    // convertDiv.style.flexDirection = 'row-reverse';
+    // console.log(convertDiv.style.flexDirection);
+    i++;
+})
+
 let convertFromCurrency = 'RUB';
 let convertToCurrency = 'RUB';
 
