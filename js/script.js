@@ -7,13 +7,51 @@ let convertToInfoText = document.querySelector("body > div > div.converter > div
 let convertButton = document.querySelector("body > div > div.converter > div.convert-button > button");
 let convertDiv = document.querySelector("body > div > div.converter");
 
+// let container
+let container = document.querySelector("body > div.container");
+
 let i = 0;
-// let tempForConvertFrom = convertFrom.value;
-// let tempForConvertFrom = convertTo.value;
+
+// let isConnected = navigator.onLine;
+
+// if (isConnected) {
+//     alert('You are connected to the internet');
+// } else {
+//     document.addEventListener('mousemove', () => {
+//         alert('You are not connected to the internet');
+//     });
+// }
+
+// just for testing purpose
+let widthOfContainer = convertDiv.clientWidth;
+
+window.addEventListener('resize', () => {
+    widthOfContainer = container.clientWidth;
+
+    if (widthOfContainer < 401) {
+        convertDiv.style.flexDirection = "column";
+    } else {
+        convertDiv.style.flexDirection = "row";
+    }
+});
+
+
+
 convertButton.addEventListener('click', () => {
 
+    
     if(i % 2 == 0) {
-        convertDiv.style.flexDirection = 'row-reverse';
+
+        console.info('1. Container width is: ' + widthOfContainer);
+        
+        document.querySelector("body > div > div.converter > div.convert-button > button").innerHTML = "&lrarr;";
+
+        if (widthOfContainer < 401) {
+            convertDiv.style.flexDirection = 'column-reverse';
+        } else {
+            convertDiv.style.flexDirection = 'row-reverse';
+        }
+
 
         if (!isNaN(convertFrom.value)) {
             fetch(url)
@@ -22,7 +60,6 @@ convertButton.addEventListener('click', () => {
                     let temp = convertFrom.value;
                     convertTo.value = temp;
                     convertFrom.value =convertTo.value /  data.rates[convertToCurrency];
-                    console.log('hello world');
                     // convertTo.value = data.rates[convertToCurrency] * convertFrom.value;
                 });
     
@@ -32,7 +69,18 @@ convertButton.addEventListener('click', () => {
         }
 
     } else {
-        convertDiv.style.flexDirection = 'row';
+
+        console.info('2. Container width is: ' + widthOfContainer);
+
+        document.querySelector("body > div > div.converter > div.convert-button > button").innerHTML = "&rlarr;";
+
+        
+        if (widthOfContainer < 401) {
+            convertDiv.style.flexDirection = 'column';
+        } else {
+            convertDiv.style.flexDirection = 'row';
+        }
+
         let temp = convertTo.value;
         convertTo.value = convertFrom.value;
         convertFrom.value = temp;
@@ -53,8 +101,7 @@ convertButton.addEventListener('click', () => {
         }
 
     }
-    // convertDiv.style.flexDirection = 'row-reverse';
-    // console.log(convertDiv.style.flexDirection);
+
     i++;
 })
 

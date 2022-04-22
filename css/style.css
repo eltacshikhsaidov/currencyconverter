@@ -205,7 +205,7 @@
 
 /* media queries */
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 400px) {
 
     /* navbar design */
 
@@ -231,7 +231,7 @@
     }
 
     .convertFrom {
-        padding-bottom: 4vw;
+        /* padding-bottom: 4vw; */
     }
 
     .result {
@@ -259,13 +259,13 @@
 
     /* button dsign */
 
-    .convert-button>button {
+    .convert-button {
         transform: rotate(90deg);
         -webkit-transform: rotate(90deg);
         -moz-transform: rotate(90deg);
         -ms-transform: rotate(90deg);
         -o-transform: rotate(90deg);
-}
+    }
 
 
 }
