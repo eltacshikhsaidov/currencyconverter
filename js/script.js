@@ -35,7 +35,7 @@ function convert(convertFrom, convertTo) {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    convertTo.value = data.rates[convertFromCurrency] * convertFrom.value;
+                    convertTo.value = data.rates[convertToCurrency] * convertFrom.value;
                 });
     
         } else {
