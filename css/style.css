@@ -205,19 +205,19 @@
 
 /* media queries */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 400px) {
 
     /* navbar design */
 
     /* navbar end */
 
     .name {
-        font-size: 2.5vw;
+        font-size: 3.5vw;
     }
 
     .ihave, .wantTo {
-        font-size: 3vw;
-        padding-bottom: 1vw;
+        font-size: 4vw;
+        padding-bottom: 1.5vw;
     }
 
     /* converter responsive design */
@@ -226,33 +226,32 @@
     }
 
     .convertFrom, .convertTo {
-        padding: 1vw;
-        width: 80vw;
-    }
+        /* padding: 1vw; */
+        width: 90vw;
+        height: 45vw;
 
-    .convertFrom {
-        /* padding-bottom: 4vw; */
+        margin: 5vw 0;
     }
 
     .result {
-        padding: 2vw;
-        height: 20vw;
+        padding: 3vw;
+        height: 45vw;
     }
 
     .resultInfo {
-        font-size: 2vw;
-        padding-top: 5vw;
+        font-size: 5vw;
+        padding-top: 9.5vw;
         color: rgb(163, 163, 163);
     }
 
     .rub, .usd, .eur, .gbp {
-        font-size: 3vw;
-        padding-top: 1vw;
-        padding-bottom: 1vw;
+        font-size: 4vw;
+        padding-top: 2vw;
+        padding-bottom: 2vw;
     }
 
     .resultNumber>input {
-        font-size: 7vw;
+        font-size: 20vw;
     }
 
     /* converter end */
@@ -260,11 +259,20 @@
     /* button dsign */
 
     .convert-button {
+        margin-top: 20vw;
         transform: rotate(90deg);
         -webkit-transform: rotate(90deg);
         -moz-transform: rotate(90deg);
         -ms-transform: rotate(90deg);
         -o-transform: rotate(90deg);
+    }
+
+    .convert-button>button {
+        font-size: 15vw;
+        width: 20vw;
+        height: 25vw;
+        margin: 0;
+        border-radius: 3vw;
     }
 
 
